@@ -80,7 +80,7 @@ module.exports = env => ({
     new AddAssetHtmlPlugin({
       filepath: path.resolve(__dirname, 'dist/js/*.dll.js'),
       outputPath: 'js',
-      //publicPath: env.NODE_ENV === 'production' ? './js' : './dist/js',
+      publicPath: env.NODE_ENV === 'production' ? 'js' : './dist/js',
     }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['**/app.*'],

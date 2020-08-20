@@ -1,21 +1,27 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require('webpack')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
+  resolve: {
+    alias: {
+      Utils: path.resolve(__dirname, 'src/utils/'),
+    },
+  },
   entry: {
-    app: path.resolve(__dirname,'src/index.js'),
+    app: path.resolve(__dirname, 'src/index.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].js',
     publicPath: 'http://localhost:9001/',
-    chunkFilename: 'js/[id].[chunkhash].js'
+    chunkFilename: 'js/[id].[chunkhash].js',
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
     open: true,
-    port: 9001,
+    port: 3000,
     hot: true,
   },
   module: {
@@ -27,26 +33,25 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.jpg|png|gif|woff|eot|ttf|svg|mp4|webm$/,
+        test: /\.(jpg|png|gif|svg)$/,
         use: {
-          loader: 'file-loader',
+          loader: 'url-loader',
           options: {
-            outputPath: 'assets/',
-          }
-        }
+            limit: 100000,
+            fallback: 'file-loader',
+            name: 'images/[name].[hash].[ext]',
+          },
+        },
       },
-    ]
+    ],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public/index.html')
+      template: path.resolve(__dirname, 'public/index.html'),
     }),
   ],
-}
+};

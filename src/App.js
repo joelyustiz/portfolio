@@ -1,16 +1,8 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./css/Reset-styles.css";
-import "./App.css";
-import Home from "./view/Home/Home";
-import { language } from "./util/data";
+import React from 'react';
+import './App.css';
 
 function App(props) {
-  return (
-    <div className="App">
-      <Home />
-    </div>
-  );
+  return <div className="App">PRUEBA</div>;
 }
 
 export default App;

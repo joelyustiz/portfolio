@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import hero from "../../assets/images/hero.jpg";
+import React, { useState } from 'react';
+import hero from '../../assets/images/hero.jpg';
 function Home(props) {
   return (
     <div>

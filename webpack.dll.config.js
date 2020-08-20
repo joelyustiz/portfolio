@@ -1,21 +1,16 @@
-const path = require('path')
-const webpack = require('webpack')
-const TersetJSPlugin = require('terser-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const TersetJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-module.exports = {
+module.exports = env => ({
+  mode: env.NODE_ENV === 'production' ? 'production' : 'none',
   entry: {
-    modules: [
-      'react',
-      'react-dom',
-      'react-router-dom',
-    ]
+    modules: ['react', 'react-dom'],
   },
   optimization: {
-    minimizer: [
-      new TersetJSPlugin(),
-      new OptimizeCSSAssetsPlugin()
-    ]
+    minimizer: [new TersetJSPlugin(), new OptimizeCSSAssetsPlugin()],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -25,7 +20,10 @@ module.exports = {
   plugins: [
     new webpack.DllPlugin({
       name: '[name]',
-      path: path.join(__dirname, '[name]-manifest.json')
-    })
+      path: path.join(__dirname, '[name]-manifest.json'),
+    }),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['js/*.dll.js*'],
+    }),
   ],
-}
+});

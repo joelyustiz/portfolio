@@ -10,6 +10,7 @@
     "lint": "eslint src/ --fix"
   },
   "dependencies": {
+    "@react-google-maps/api": "^1.13.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0"
   },
